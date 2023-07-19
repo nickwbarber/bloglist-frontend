@@ -14,20 +14,22 @@ const App = () => {
   }, []);
 
   return (
+    // if the user is logged in, show the blogs
+    // otherwise show the login form
     <div>
-      { errorMessage ? <p>{errorMessage}</p> : null }
-      { notificationMessage ? <p>{notificationMessage}</p> : null }
-      { user === null
-        ? <Login
-          setUser={setUser}
-          setErrorMessage={setErrorMessage}
-        />
-        : <p>{user.name} logged in</p>
-      }
-      <h2>blogs</h2>
-      {blogs.map((blog) => (
-        <Blog key={blog.id} blog={blog} />
-      ))}
+      {errorMessage ? <p>{errorMessage}</p> : null}
+      {notificationMessage ? <p>{notificationMessage}</p> : null}
+      {user === null ? (
+        <Login setUser={setUser} setErrorMessage={setErrorMessage} />
+      ) : (
+        <>
+          <p>{user.name} logged in</p>
+          <h2>blogs</h2>
+          {blogs.map((blog) => (
+            <Blog key={blog.id} blog={blog} />
+          ))}
+        </>
+      )}
     </div>
   );
 };
