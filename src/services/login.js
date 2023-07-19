@@ -5,7 +5,8 @@ const baseUrl = "/api/login";
  * @returns (token, username, name)
  */
 const login = async (credentials) => {
-  return axios.post(baseUrl, credentials);
+  const response = await axios.post(baseUrl, credentials);
+  return response.data;
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
