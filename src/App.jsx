@@ -59,7 +59,9 @@ function App() {
             {' '}
             logged in
           </p>
-          <button onClick={logout}>logout</button>
+          <button type="submit" onClick={logout}>
+            logout
+          </button>
 
           <h3>create new blog</h3>
           <BlogForm
