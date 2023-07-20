@@ -1,19 +1,20 @@
-import { useState } from "react";
-import loginService from "../services/login";
-import blogService from "../services/blogs";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import loginService from '../services/login';
+import blogService from '../services/blogs';
 
 const loginWithUsernameAndPassword = async (username, password) => {
   const user = await loginService.login({
     username,
     password,
   });
-  window.localStorage.setItem("loggedBlogAppUser", JSON.stringify(user));
+  window.localStorage.setItem('loggedBlogAppUser', JSON.stringify(user));
   return user;
 };
 
-const Login = ({ setUser, setErrorMessage }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+function Login({ setUser, setErrorMessage, setNotificationMessage }) {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -21,11 +22,11 @@ const Login = ({ setUser, setErrorMessage }) => {
       const user = await loginWithUsernameAndPassword(username, password);
       setUser(user);
       blogService.setToken(user.token);
-      setUsername("");
-      setPassword("");
+      setUsername('');
+      setPassword('');
     } catch (err) {
-      setErrorMessage("Wrong credentials");
-      setPassword("");
+      setErrorMessage('Wrong credentials');
+      setPassword('');
       setTimeout(() => {
         setErrorMessage(null);
       }, 5000);
@@ -37,7 +38,8 @@ const Login = ({ setUser, setErrorMessage }) => {
       <h2>Log in to application</h2>
       <form onSubmit={handleLogin}>
         <div>
-          username{" "}
+          username
+          {' '}
           <input
             type="text"
             value={username}
@@ -46,7 +48,8 @@ const Login = ({ setUser, setErrorMessage }) => {
           />
         </div>
         <div>
-          password{" "}
+          password
+          {' '}
           <input
             type="password"
             value={password}
@@ -58,6 +61,12 @@ const Login = ({ setUser, setErrorMessage }) => {
       </form>
     </div>
   );
+}
+
+Login.propTypes = {
+  setUser: PropTypes.func.isRequired,
+  setNotificationMessage: PropTypes.func.isRequired,
+  setErrorMessage: PropTypes.func.isRequired,
 };
 
 export default Login;

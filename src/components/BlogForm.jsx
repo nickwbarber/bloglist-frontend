@@ -1,10 +1,11 @@
-import { useState } from "react";
-import blogService from "../services/blogs";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import blogService from '../services/blogs';
 
-const BlogForm = ({ setBlogs, setNotificationMessage, setErrorMessage }) => {
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const [url, setUrl] = useState("");
+function BlogForm({ setBlogs, setNotificationMessage, setErrorMessage }) {
+  const [title, setTitle] = useState('');
+  const [author, setAuthor] = useState('');
+  const [url, setUrl] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,17 +19,17 @@ const BlogForm = ({ setBlogs, setNotificationMessage, setErrorMessage }) => {
       }, 5000);
     }
 
-    console.log("blog created");
-    setNotificationMessage("blog created");
+    console.log('blog created');
+    setNotificationMessage('blog created');
     setInterval(() => {
       setNotificationMessage(null);
     }, 5000);
 
     setBlogs((prevBlogs) => [...prevBlogs, res.data]);
 
-    setTitle("");
-    setAuthor("");
-    setUrl("");
+    setTitle('');
+    setAuthor('');
+    setUrl('');
   };
 
   return (
@@ -75,6 +76,12 @@ const BlogForm = ({ setBlogs, setNotificationMessage, setErrorMessage }) => {
       <button type="submit">create</button>
     </form>
   );
+}
+
+BlogForm.propTypes = {
+  setBlogs: PropTypes.func.isRequired,
+  setNotificationMessage: PropTypes.func.isRequired,
+  setErrorMessage: PropTypes.func.isRequired,
 };
 
 export default BlogForm;
