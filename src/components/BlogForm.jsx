@@ -12,14 +12,12 @@ function BlogForm({ setBlogs, setNotificationMessage, setErrorMessage }) {
     const res = await blogService.create({ title, author, url });
 
     if (res.error) {
-      console.error(res.error);
       setErrorMessage(res.error);
       setInterval(() => {
         setErrorMessage(null);
       }, 5000);
     }
 
-    console.log('blog created');
     setNotificationMessage('blog created');
     setInterval(() => {
       setNotificationMessage(null);
