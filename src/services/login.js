@@ -1,5 +1,6 @@
-import axios from "axios";
-const baseUrl = "/api/login";
+import axios from 'axios';
+
+const baseUrl = '/api/login';
 
 /**
  * @returns (token, username, name)

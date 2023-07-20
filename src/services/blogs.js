@@ -1,5 +1,6 @@
-import axios from "axios";
-const baseUrl = "/api/blogs";
+import axios from 'axios';
+
+const baseUrl = '/api/blogs';
 
 let token = null;
 
@@ -31,4 +32,6 @@ const update = async (id, newBlog) => {
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { getAll, setToken, create, update };
+export default {
+  getAll, setToken, create, update,
+};

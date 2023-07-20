@@ -1,17 +1,17 @@
-import { useState, useEffect } from "react";
-import Blog from "./components/Blog";
-import BlogForm from "./components/BlogForm";
-import Login from "./components/Login";
-import blogService from "./services/blogs";
+import { useState, useEffect } from 'react';
+import Blog from './components/Blog';
+import BlogForm from './components/BlogForm';
+import Login from './components/Login';
+import blogService from './services/blogs';
 
-const App = () => {
+function App() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [notificationMessage, setNotificationMessage] = useState(null);
   const [blogs, setBlogs] = useState([]);
   const [user, setUser] = useState(null);
 
   const logout = () => {
-    window.localStorage.removeItem("loggedBlogAppUser");
+    window.localStorage.removeItem('loggedBlogAppUser');
     setUser(null);
   };
 
@@ -19,7 +19,6 @@ const App = () => {
     const fetchBlogs = async () => {
       const res = await blogService.getAll();
       if (res.error) {
-        console.error(res.error);
         setErrorMessage(res.error);
         setTimeout(() => {
           setErrorMessage(null);
@@ -32,7 +31,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem("loggedBlogAppUser");
+    const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser');
 
     if (loggedUserJSON) {
       const loggedUser = JSON.parse(loggedUserJSON);
@@ -55,7 +54,11 @@ const App = () => {
         />
       ) : (
         <>
-          <p>{user.name} logged in</p>
+          <p>
+            {user.name}
+            {' '}
+            logged in
+          </p>
           <button onClick={logout}>logout</button>
 
           <h3>create new blog</h3>
@@ -73,6 +76,6 @@ const App = () => {
       )}
     </div>
   );
-};
+}
 
 export default App;
