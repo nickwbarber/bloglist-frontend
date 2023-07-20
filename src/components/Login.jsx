@@ -22,6 +22,9 @@ function Login({ setUser, setErrorMessage, setNotificationMessage }) {
       const user = await loginWithUsernameAndPassword(username, password);
       setUser(user);
       blogService.setToken(user.token);
+      setTimeout(() => {
+        setNotificationMessage('logged in');
+      }, 5000);
       setUsername('');
       setPassword('');
     } catch (err) {
