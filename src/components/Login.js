@@ -1,5 +1,6 @@
 import { useState } from "react";
 import loginService from "../services/login";
+import blogService from "../services/blogs";
 
 const loginWithUsernameAndPassword = async (username, password) => {
   const user = await loginService.login({
@@ -8,7 +9,7 @@ const loginWithUsernameAndPassword = async (username, password) => {
   });
   window.localStorage.setItem("loggedBlogappUser", JSON.stringify(user));
   return user;
-}
+};
 
 const Login = ({ setUser, setErrorMessage }) => {
   const [username, setUsername] = useState("");
@@ -19,6 +20,7 @@ const Login = ({ setUser, setErrorMessage }) => {
     try {
       const user = await loginWithUsernameAndPassword(username, password);
       setUser(user);
+      blogService.setToken(user.token);
       setUsername("");
       setPassword("");
     } catch (err) {
@@ -28,7 +30,7 @@ const Login = ({ setUser, setErrorMessage }) => {
         setErrorMessage(null);
       }, 5000);
     }
-  }
+  };
 
   return (
     <div>
@@ -55,7 +57,7 @@ const Login = ({ setUser, setErrorMessage }) => {
         <button type="submit">login</button>
       </form>
     </div>
-  )
+  );
 };
 
 export default Login;
