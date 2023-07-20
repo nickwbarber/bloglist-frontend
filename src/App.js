@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Blog from "./components/Blog";
+import BlogForm from "./components/BlogForm";
 import Login from "./components/Login";
 import blogService from "./services/blogs";
 
@@ -15,7 +16,19 @@ const App = () => {
   };
 
   useEffect(() => {
-    blogService.getAll().then((blogs) => setBlogs(blogs));
+    const fetchBlogs = async () => {
+      const res = await blogService.getAll();
+      if (res.error) {
+        console.error(res.error);
+        setErrorMessage(res.error);
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 5000);
+        return;
+      }
+      setBlogs(res.data);
+    };
+    fetchBlogs();
   }, []);
 
   useEffect(() => {
@@ -35,11 +48,23 @@ const App = () => {
       {errorMessage ? <p>{errorMessage}</p> : null}
       {notificationMessage ? <p>{notificationMessage}</p> : null}
       {user === null ? (
-        <Login setUser={setUser} setErrorMessage={setErrorMessage} />
+        <Login
+          setUser={setUser}
+          setErrorMessage={setErrorMessage}
+          setNotificationMessage={setNotificationMessage}
+        />
       ) : (
         <>
           <p>{user.name} logged in</p>
           <button onClick={logout}>logout</button>
+
+          <h3>create new blog</h3>
+          <BlogForm
+            setBlogs={setBlogs}
+            setErrorMessage={setErrorMessage}
+            setNotificationMessage={setNotificationMessage}
+          />
+
           <h2>blogs</h2>
           {blogs.map((blog) => (
             <Blog key={blog.id} blog={blog} />
