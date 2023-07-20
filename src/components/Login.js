@@ -7,7 +7,7 @@ const loginWithUsernameAndPassword = async (username, password) => {
     username,
     password,
   });
-  window.localStorage.setItem("loggedBlogappUser", JSON.stringify(user));
+  window.localStorage.setItem("loggedBlogAppUser", JSON.stringify(user));
   return user;
 };
 
