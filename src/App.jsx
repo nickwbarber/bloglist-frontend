@@ -66,12 +66,13 @@ function App() {
             logout
           </button>
 
-          <h3>create new blog</h3>
-          <BlogForm
-            setBlogs={setBlogs}
-            setErrorMessage={setErrorMessage}
-            setNotificationMessage={setNotificationMessage}
-          />
+          <Togglable buttonLabel="create new blog">
+            <BlogForm
+              setBlogs={setBlogs}
+              setErrorMessage={setErrorMessage}
+              setNotificationMessage={setNotificationMessage}
+            />
+          </Togglable>
 
           <h2>blogs</h2>
           {blogs.map((blog) => (
