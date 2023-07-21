@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Blog from './components/Blog';
 import BlogForm from './components/BlogForm';
 import Login from './components/Login';
+import Togglable from './components/Togglable';
 import blogService from './services/blogs';
 
 function App() {
@@ -47,11 +48,13 @@ function App() {
       {errorMessage ? <p>{errorMessage}</p> : null}
       {notificationMessage ? <p>{notificationMessage}</p> : null}
       {user === null ? (
-        <Login
-          setUser={setUser}
-          setErrorMessage={setErrorMessage}
-          setNotificationMessage={setNotificationMessage}
-        />
+        <Togglable buttonLabel="login">
+          <Login
+            setUser={setUser}
+            setErrorMessage={setErrorMessage}
+            setNotificationMessage={setNotificationMessage}
+          />
+        </Togglable>
       ) : (
         <>
           <p>
