@@ -71,7 +71,7 @@ function BlogForm({ setBlogs, setNotificationMessage, setErrorMessage }) {
         />
       </div>
       <br />
-      <button type="submit">create</button>
+      <button type="submit">submit blog</button>
     </form>
   );
 }

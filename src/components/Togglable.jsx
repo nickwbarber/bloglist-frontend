@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import BlogForm from './BlogForm';
+import Login from './Login';
 
 function Togglable(props) {
   const { children, buttonLabel } = props;
@@ -25,7 +27,11 @@ function Togglable(props) {
 }
 
 Togglable.propTypes = {
-  children: PropTypes.func.isRequired,
+  // FIXME: this isn't the correct way to reference JSX elements
+  children: PropTypes.oneOfType([
+    PropTypes.instanceOf(Login),
+    PropTypes.instanceOf(BlogForm),
+  ]).isRequired,
   buttonLabel: PropTypes.string.isRequired,
 };
 
