@@ -101,10 +101,16 @@ function App() {
         }, 5000);
         return;
       }
-      setBlogs(res.data);
+      const returnedBlogs = res.data;
+      returnedBlogs.sort((a, b) => (a.likes < b.likes ? 1 : -1));
+      setBlogs(returnedBlogs);
     };
     fetchBlogs();
   }, []);
+
+  useEffect(() => {
+    blogs.sort((a, b) => (a.likes < b.likes ? 1 : -1));
+  }, [blogs]);
 
   // try finding the user's token in local storage
   useEffect(() => {
