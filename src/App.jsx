@@ -67,6 +67,30 @@ function App() {
     return true;
   };
 
+  const likeBlog = async (blog) => {
+    const updatedBlog = { ...blog, user: blog.user.id, likes: blog.likes + 1 };
+
+    setBlogs(blogs.map((b) => (b.id === blog.id ? updatedBlog : b)));
+
+    // FIXME: When the response is receieved, the user information in the UI is lost
+    const res = await blogService.update(blog.id, updatedBlog);
+
+    if (res.error) {
+      setErrorMessage(res.error);
+      setInterval(() => {
+        setErrorMessage(null);
+      }, 5000);
+      return false;
+    }
+
+    setNotificationMessage('blog liked');
+    setInterval(() => {
+      setNotificationMessage(null);
+    }, 5000);
+
+    return true;
+  };
+
   useEffect(() => {
     const fetchBlogs = async () => {
       const res = await blogService.getAll();
@@ -121,7 +145,7 @@ function App() {
           <h2>blogs</h2>
           {blogs.map((blog) => (
             <div key={blog.id}>
-              <Blog blog={blog} />
+              <Blog blog={blog} likeBlog={likeBlog} />
               <br />
             </div>
           ))}

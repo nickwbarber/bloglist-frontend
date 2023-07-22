@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-function Blog({ blog }) {
+function Blog({ blog, likeBlog }) {
   const [visible, setVisible] = useState(false);
 
   const toggleVisibility = () => setVisible(!visible);
@@ -34,7 +34,7 @@ function Blog({ blog }) {
         {`--> submitted by: ${blog.user.username} `}
         <br />
         {`--> likes: ${blog.likes} `}
-        <button type="button">like</button>
+        <button type="button" onClick={() => likeBlog(blog)}>like</button>
       </div>
     </div>
   );
@@ -42,12 +42,14 @@ function Blog({ blog }) {
 
 Blog.propTypes = {
   blog: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     author: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
     user: PropTypes.string.isRequired,
     likes: PropTypes.number.isRequired,
   }).isRequired,
+  likeBlog: PropTypes.func.isRequired,
 };
 
 export default Blog;
