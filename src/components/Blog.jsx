@@ -31,6 +31,8 @@ function Blog({ blog }) {
         <br />
         {`--> URL: ${blog.url}`}
         <br />
+        {`--> submitted by: ${blog.user.username} `}
+        <br />
         {`--> likes: ${blog.likes} `}
         <button type="button">like</button>
       </div>
@@ -43,6 +45,7 @@ Blog.propTypes = {
     title: PropTypes.string.isRequired,
     author: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
+    user: PropTypes.string.isRequired,
     likes: PropTypes.number.isRequired,
   }).isRequired,
 };
