@@ -16,6 +16,27 @@ function App() {
     setUser(null);
   };
 
+  const addBlog = async (blog) => {
+    const res = await blogService.create(blog);
+
+    if (res.error) {
+      setErrorMessage(res.error);
+      setInterval(() => {
+        setErrorMessage(null);
+      }, 5000);
+      return false;
+    }
+
+    setBlogs([...blogs, res.data]);
+
+    setNotificationMessage('blog created');
+    setInterval(() => {
+      setNotificationMessage(null);
+    }, 5000);
+
+    return true;
+  };
+
   useEffect(() => {
     const fetchBlogs = async () => {
       const res = await blogService.getAll();
@@ -62,18 +83,14 @@ function App() {
             {' '}
             logged in
           </p>
+          {' '}
           <button type="submit" onClick={logout}>
             logout
           </button>
-
           <Togglable buttonLabel="create new blog">
-            <BlogForm
-              setBlogs={setBlogs}
-              setErrorMessage={setErrorMessage}
-              setNotificationMessage={setNotificationMessage}
-            />
+            <BlogForm addBlog={addBlog} />
           </Togglable>
-
+          {' '}
           <h2>blogs</h2>
           {blogs.map((blog) => (
             <Blog key={blog.id} blog={blog} />
