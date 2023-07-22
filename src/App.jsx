@@ -68,12 +68,11 @@ function App() {
   };
 
   const likeBlog = async (blog) => {
-    const updatedBlog = { ...blog, user: blog.user.id, likes: blog.likes + 1 };
+    const updatedBlog = { ...blog, likes: blog.likes + 1 };
 
     setBlogs(blogs.map((b) => (b.id === blog.id ? updatedBlog : b)));
 
-    // FIXME: When the response is receieved, the user information in the UI is lost
-    const res = await blogService.update(blog.id, updatedBlog);
+    const res = await blogService.update(blog.id, { ...updatedBlog, user: blog.user.id });
 
     if (res.error) {
       setErrorMessage(res.error);

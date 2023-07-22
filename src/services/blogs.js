@@ -27,6 +27,7 @@ const update = async (id, newBlog) => {
     headers: { Authorization: token },
   };
 
+  // FIXME: make sure the user information gets returned
   const response = await axios.put(`${baseUrl}/${id}`, newBlog, config);
   return response;
 };
