@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 function Blog({ blog }) {
+  const [visible, setVisible] = useState(false);
+
+  const toggleVisibility = () => setVisible(!visible);
+
+  const showWhenVisible = { display: visible ? '' : 'none' };
+  const hideWhenVisible = { display: visible ? 'none' : '' };
+
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -12,14 +19,21 @@ function Blog({ blog }) {
 
   return (
     <div style={blogStyle}>
-      {`--> title: ${blog.title}`}
-      <br />
-      {`--> author: ${blog.author}`}
-      <br />
-      {`--> URL: ${blog.url}`}
-      <br />
-      {`--> likes: ${blog.likes} `}
-      <button type="button">like</button>
+      <div style={hideWhenVisible}>
+        <button type="button" onClick={toggleVisibility}>show blog</button>
+        {blog.title}
+      </div>
+      <div style={showWhenVisible}>
+        <button type="button" onClick={toggleVisibility}>hide</button>
+        {blog.title}
+        <br />
+        {`--> author: ${blog.author}`}
+        <br />
+        {`--> URL: ${blog.url}`}
+        <br />
+        {`--> likes: ${blog.likes} `}
+        <button type="button">like</button>
+      </div>
     </div>
   );
 }

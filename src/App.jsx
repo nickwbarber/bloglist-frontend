@@ -121,10 +121,7 @@ function App() {
           <h2>blogs</h2>
           {blogs.map((blog) => (
             <div>
-              {`Title: ${blog.title}`}
-              <Togglable key={blog.id} buttonLabel="show blog" hideLabel="hide">
-                <Blog key={blog.id} blog={blog} />
-              </Togglable>
+              <Blog key={blog.id} blog={blog} />
               <br />
             </div>
           ))}
