@@ -27,12 +27,20 @@ const update = async (id, newBlog) => {
     headers: { Authorization: token },
   };
 
-  // FIXME: make sure the user information gets returned
   const response = await axios.put(`${baseUrl}/${id}`, newBlog, config);
+  return response;
+};
+
+const remove = async (id) => {
+  const config = {
+    headers: { Authorization: token },
+  };
+
+  const response = await axios.delete(`${baseUrl}/delete/${id}`, config);
   return response;
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-  getAll, setToken, create, update,
+  getAll, setToken, create, update, remove,
 };

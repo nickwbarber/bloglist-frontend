@@ -90,6 +90,27 @@ function App() {
     return true;
   };
 
+  const deleteBlog = async (blogId) => {
+    const res = await blogService.remove(blogId);
+
+    if (res.error) {
+      setErrorMessage(res.error);
+      setInterval(() => {
+        setErrorMessage(null);
+      }, 5000);
+      return false;
+    }
+
+    setBlogs(blogs.filter((b) => b.id !== blogId));
+
+    setNotificationMessage('blog deleted');
+    setInterval(() => {
+      setNotificationMessage(null);
+    }, 5000);
+
+    return true;
+  };
+
   useEffect(() => {
     const fetchBlogs = async () => {
       const res = await blogService.getAll();
@@ -150,7 +171,7 @@ function App() {
           <h2>blogs</h2>
           {blogs.map((blog) => (
             <div key={blog.id}>
-              <Blog blog={blog} likeBlog={likeBlog} />
+              <Blog blog={blog} likeBlog={likeBlog} deleteBlog={deleteBlog} />
               <br />
             </div>
           ))}
