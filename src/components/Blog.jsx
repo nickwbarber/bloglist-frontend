@@ -2,8 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function Blog({ blog }) {
+  const blogStyle = {
+    paddingTop: 10,
+    paddingLeft: 2,
+    border: 'solid',
+    borderWidth: 1,
+    marginBottom: 5,
+  };
+
   return (
-    <div>
+    <div style={blogStyle}>
       {`--> title: ${blog.title}`}
       <br />
       {`--> author: ${blog.author}`}
