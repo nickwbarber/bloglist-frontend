@@ -21,7 +21,10 @@ function App() {
 
       setUser(returnedUserInfo);
       blogService.setToken(returnedUserInfo.token);
-      window.localStorage.setItem('loggedBlogAppUser', JSON.stringify(returnedUserInfo));
+      window.localStorage.setItem(
+        'loggedBlogAppUser',
+        JSON.stringify(returnedUserInfo),
+      );
 
       setNotificationMessage('logged in');
       setTimeout(() => {
@@ -97,7 +100,7 @@ function App() {
       {errorMessage ? <p>{errorMessage}</p> : null}
       {notificationMessage ? <p>{notificationMessage}</p> : null}
       {user === null ? (
-        <Togglable buttonLabel="login">
+        <Togglable buttonLabel="login" hideLabel="cancel">
           <Login login={login} />
         </Togglable>
       ) : (
@@ -111,13 +114,19 @@ function App() {
           <button type="submit" onClick={logout}>
             logout
           </button>
-          <Togglable buttonLabel="create new blog">
+          <Togglable buttonLabel="create new blog" hideLabel="cancel">
             <BlogForm addBlog={addBlog} />
           </Togglable>
           {' '}
           <h2>blogs</h2>
           {blogs.map((blog) => (
-            <Blog key={blog.id} blog={blog} />
+            <div>
+              {`Title: ${blog.title}`}
+              <Togglable key={blog.id} buttonLabel="show blog" hideLabel="hide">
+                <Blog key={blog.id} blog={blog} />
+              </Togglable>
+              <br />
+            </div>
           ))}
         </>
       )}
