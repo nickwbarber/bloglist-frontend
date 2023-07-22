@@ -120,8 +120,8 @@ function App() {
           {' '}
           <h2>blogs</h2>
           {blogs.map((blog) => (
-            <div>
-              <Blog key={blog.id} blog={blog} />
+            <div key={blog.id}>
+              <Blog blog={blog} />
               <br />
             </div>
           ))}
