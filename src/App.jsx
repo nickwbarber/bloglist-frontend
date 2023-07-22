@@ -4,12 +4,39 @@ import BlogForm from './components/BlogForm';
 import Login from './components/Login';
 import Togglable from './components/Togglable';
 import blogService from './services/blogs';
+import loginService from './services/login';
 
 function App() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [notificationMessage, setNotificationMessage] = useState(null);
   const [blogs, setBlogs] = useState([]);
   const [user, setUser] = useState(null);
+
+  const login = async ({ username, password }) => {
+    try {
+      const returnedUserInfo = await loginService.login({
+        username,
+        password,
+      });
+
+      setUser(returnedUserInfo);
+      blogService.setToken(returnedUserInfo.token);
+      window.localStorage.setItem('loggedBlogAppUser', JSON.stringify(returnedUserInfo));
+
+      setNotificationMessage('logged in');
+      setTimeout(() => {
+        setNotificationMessage('');
+      }, 5000);
+      return true;
+    } catch (err) {
+      setErrorMessage('Wrong credentials');
+      setTimeout(() => {
+        setErrorMessage('');
+      }, 5000);
+
+      return false;
+    }
+  };
 
   const logout = () => {
     window.localStorage.removeItem('loggedBlogAppUser');
@@ -52,6 +79,7 @@ function App() {
     fetchBlogs();
   }, []);
 
+  // try finding the user's token in local storage
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser');
 
@@ -70,11 +98,7 @@ function App() {
       {notificationMessage ? <p>{notificationMessage}</p> : null}
       {user === null ? (
         <Togglable buttonLabel="login">
-          <Login
-            setUser={setUser}
-            setErrorMessage={setErrorMessage}
-            setNotificationMessage={setNotificationMessage}
-          />
+          <Login login={login} />
         </Togglable>
       ) : (
         <>
