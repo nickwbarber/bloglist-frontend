@@ -1,8 +1,9 @@
-import React from 'react';
-import '@testing-library/jest-dom/extend-expect';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import BlogForm from './BlogForm';
+import React from "react";
+import "@jest/globals";
+import "@testing-library/jest-dom/extend-expect";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import BlogForm from "./BlogForm";
 
 let renderedBlogForm;
 let container;
@@ -17,7 +18,6 @@ beforeEach(() => {
 });
 
 describe("<BlogForm />", () => {
-
   test("form is rendered", () => {
     expect(container.querySelector(".BlogForm")).toBeDefined();
   });
@@ -30,12 +30,12 @@ describe("<BlogForm />", () => {
     userEvent.type(screen.getByPlaceholderText("title"), "test title");
     userEvent.type(screen.getByPlaceholderText("author"), "test author");
     userEvent.type(screen.getByPlaceholderText("url"), "test url");
-    userEvent.click(submitButton)
+    userEvent.click(submitButton);
 
     expect(mockAddBlog).toHaveBeenCalledWith({
       title: "test title",
       author: "test author",
-      url: "test url"
+      url: "test url",
     });
   });
 });

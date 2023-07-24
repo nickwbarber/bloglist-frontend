@@ -1,6 +1,8 @@
 env:
   browser: true
-  es2021: true
+  es6: true
+  jest/globals: true
+  cypres/globals: true
 extends:
   - plugin:react/recommended
   - airbnb
@@ -10,4 +12,6 @@ parserOptions:
   sourceType: module
 plugins:
   - react
+  - jest
+  - cypress
 rules: {}
