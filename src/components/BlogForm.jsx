@@ -19,7 +19,7 @@ function BlogForm({ addBlog }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="BlogForm" onSubmit={handleSubmit}>
       <div>
         <span>title: </span>
         <input
