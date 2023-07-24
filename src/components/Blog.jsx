@@ -18,25 +18,41 @@ function Blog({ blog, likeBlog, deleteBlog }) {
   };
 
   return (
-    <div style={blogStyle}>
-      <div style={hideWhenVisible}>
-        <button type="button" onClick={toggleVisibility}>show blog</button>
-        {blog.title}
+    <div className="blogContent" style={blogStyle}>
+      <div className="whenHidden" style={hideWhenVisible}>
+        <button className="showButton" type="button" onClick={toggleVisibility}>
+          show blog
+        </button>
+        <span className="titleWhenHidden">{blog.title}</span>
       </div>
-      <div style={showWhenVisible}>
-        <button type="button" onClick={toggleVisibility}>hide</button>
-        {blog.title}
+      <div className="whenVisible" style={showWhenVisible}>
+        <button className="hideButton" type="button" onClick={toggleVisibility}>
+          hide
+        </button>
+        <span className="titleWhenVisible">{blog.title}</span>
         <br />
-        {`--> author: ${blog.author}`}
+        <span className="author">{`--> author: ${blog.author}`}</span>
         <br />
-        {`--> URL: ${blog.url}`}
+        <span className="url">{`--> URL: ${blog.url}`}</span>
         <br />
-        {`--> submitted by: ${blog.user.username} `}
+        <span className="username">{`--> submitted by: ${blog.user.username} `}</span>
         <br />
-        {`--> likes: ${blog.likes} `}
-        <button type="button" onClick={() => likeBlog(blog)}>like</button>
+        <span className="likes">{`--> likes: ${blog.likes} `}</span>
+        <button
+          className="likeButton"
+          type="button"
+          onClick={() => likeBlog(blog)}
+        >
+          like
+        </button>
         <br />
-        <button type="button" onClick={() => deleteBlog(blog.id)}>delete</button>
+        <button
+          className="deleteButton"
+          type="button"
+          onClick={() => deleteBlog(blog.id)}
+        >
+          delete
+        </button>
       </div>
     </div>
   );
