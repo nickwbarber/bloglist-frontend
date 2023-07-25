@@ -23,6 +23,7 @@ function BlogForm({ addBlog }) {
       <div>
         <span>title: </span>
         <input
+          id="title"
           type="text"
           name="title"
           placeholder="title"
@@ -37,6 +38,7 @@ function BlogForm({ addBlog }) {
         <span>author: </span>
         <input
           type="text"
+          id="author"
           name="author"
           placeholder="author"
           value={author}
@@ -50,6 +52,7 @@ function BlogForm({ addBlog }) {
         <span>url: </span>
         <input
           type="text"
+          id="url"
           name="url"
           placeholder="url"
           value={url}
@@ -59,7 +62,7 @@ function BlogForm({ addBlog }) {
         />
       </div>
       <br />
-      <button type="submit">submit blog</button>
+      <button id="create-blog-button" type="submit">submit blog</button>
     </form>
   );
 }

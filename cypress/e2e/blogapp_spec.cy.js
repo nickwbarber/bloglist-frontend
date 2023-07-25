@@ -58,6 +58,11 @@ describe("Blog app", function() {
 
     it("A blog can be created", function() {
       cy.get("#toggle-blog-form").click();
+      cy.get("#title").type("test title");
+      cy.get("#author").type("test author");
+      cy.get("#url").type("test url");
+      cy.get("#create-blog-button").click();
+      cy.contains("test title");
     });
   });
 });

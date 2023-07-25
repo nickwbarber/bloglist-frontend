@@ -4,7 +4,9 @@ import BlogForm from './BlogForm';
 import Login from './Login';
 
 function Togglable(props) {
-  const { children, buttonLabel, hideLabel } = props;
+  const {
+    children, buttonId, buttonLabel, hideLabel,
+  } = props;
 
   const [visible, setVisible] = useState(false);
 
@@ -14,13 +16,13 @@ function Togglable(props) {
   const hideWhenVisible = { display: visible ? 'none' : '' };
 
   return (
-    <div id="toggle-blog-form">
+    <div>
       <div style={hideWhenVisible}>
-        <button type="button" onClick={toggleVisibility}>{buttonLabel}</button>
+        <button id={buttonId} type="button" onClick={toggleVisibility}>{buttonLabel}</button>
       </div>
       <div style={showWhenVisible}>
         <div>{children}</div>
-        <button type="button" onClick={toggleVisibility}>{hideLabel}</button>
+        <button id={buttonId} type="button" onClick={toggleVisibility}>{hideLabel}</button>
       </div>
     </div>
   );
@@ -32,6 +34,7 @@ Togglable.propTypes = {
     PropTypes.instanceOf(Login),
     PropTypes.instanceOf(BlogForm),
   ]).isRequired,
+  buttonId: PropTypes.string.isRequired,
   buttonLabel: PropTypes.string.isRequired,
   hideLabel: PropTypes.string.isRequired,
 };

@@ -168,7 +168,7 @@ function App() {
           <button type="submit" onClick={logout}>
             logout
           </button>
-          <Togglable buttonLabel="create new blog" hideLabel="cancel">
+          <Togglable buttonId="toggle-blog-form" buttonLabel="create new blog" hideLabel="cancel">
             <BlogForm addBlog={addBlog} />
           </Togglable>
           {" "}
