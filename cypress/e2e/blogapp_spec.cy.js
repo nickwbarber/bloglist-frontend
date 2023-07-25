@@ -21,15 +21,15 @@ describe("Blog app", function() {
     cy.visit(baseUrl);
   });
 
-  it("login form is shown", () => {
+  it("login form is shown", function() {
     cy.contains("Blog App");
     cy.contains("login").click();
     cy.get("#username");
     cy.get("#password");
   });
 
-  describe.only("Login", function() {
-    it("succeeds with correct creedentials", () => {
+  describe("Login", function() {
+    it("succeeds with correct creedentials", function() {
       cy.contains("login").click();
       cy.get("#username").type(user.username);
       cy.get("#password").type(user.password);
@@ -37,12 +37,27 @@ describe("Blog app", function() {
       cy.contains(`${user.name} logged in`);
     });
 
-    it("fails with incorrect creedentials", () => {
+    it("fails with incorrect creedentials", function() {
       cy.contains("login").click();
       cy.get("#username").type("unknown");
       cy.get("#password").type("unknown");
       cy.get("#login-button").click();
       cy.contains(/wrong credentials/i);
+    });
+  });
+
+  describe.only("When logged in", function() {
+    beforeEach(function() {
+      // log user in
+      cy.contains("login").click();
+      cy.get("#username").type(user.username);
+      cy.get("#password").type(user.password);
+      cy.get("#login-button").click();
+      cy.contains(`${user.name} logged in`);
+    });
+
+    it("A blog can be created", function() {
+      cy.get("#toggle-blog-form").click();
     });
   });
 });

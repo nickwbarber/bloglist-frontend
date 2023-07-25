@@ -14,7 +14,7 @@ function Togglable(props) {
   const hideWhenVisible = { display: visible ? 'none' : '' };
 
   return (
-    <div>
+    <div id="toggle-blog-form">
       <div style={hideWhenVisible}>
         <button type="button" onClick={toggleVisibility}>{buttonLabel}</button>
       </div>
