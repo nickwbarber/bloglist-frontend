@@ -14,4 +14,7 @@ plugins:
   - react
   - jest
   - cypress
-rules: {}
+rules:
+  quotes:
+    - 0
+    - double
