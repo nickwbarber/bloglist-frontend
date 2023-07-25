@@ -2,7 +2,7 @@ env:
   browser: true
   es6: true
   jest/globals: true
-  cypres/globals: true
+  cypress/globals: true
 extends:
   - plugin:react/recommended
   - airbnb
