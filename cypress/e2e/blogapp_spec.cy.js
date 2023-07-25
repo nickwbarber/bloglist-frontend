@@ -28,13 +28,21 @@ describe("Blog app", function() {
     cy.get("#password");
   });
 
-  describe("when logging in", function() {
-    // it("login form is shown", () => {
-    //   cy.contains("Blog App");
-    //   cy.contains("login").click();
-    //   cy.get("#username").type(user.username);
-    //   cy.get("#password").type(user.password);
-    //   cy.get("#login-button").click();
-    // });
+  describe.only("Login", function() {
+    it("succeeds with correct creedentials", () => {
+      cy.contains("login").click();
+      cy.get("#username").type(user.username);
+      cy.get("#password").type(user.password);
+      cy.get("#login-button").click();
+      cy.contains(`${user.name} logged in`);
+    });
+
+    it("fails with incorrect creedentials", () => {
+      cy.contains("login").click();
+      cy.get("#username").type("unknown");
+      cy.get("#password").type("unknown");
+      cy.get("#login-button").click();
+      cy.contains(/wrong credentials/i);
+    });
   });
 });
