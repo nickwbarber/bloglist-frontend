@@ -23,6 +23,7 @@ function Login({ login }) {
           username
           {' '}
           <input
+            id="username"
             type="text"
             value={username}
             name="Username"
@@ -33,6 +34,7 @@ function Login({ login }) {
           password
           {' '}
           <input
+            id="password"
             type="password"
             value={password}
             name="Password"
