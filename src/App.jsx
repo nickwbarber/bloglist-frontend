@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import Blog from './components/Blog';
-import BlogForm from './components/BlogForm';
-import Login from './components/Login';
-import Togglable from './components/Togglable';
-import blogService from './services/blogs';
-import loginService from './services/login';
+import React, { useState, useEffect } from "react";
+import Blog from "./components/Blog";
+import BlogForm from "./components/BlogForm";
+import Login from "./components/Login";
+import Togglable from "./components/Togglable";
+import blogService from "./services/blogs";
+import loginService from "./services/login";
 
 function App() {
   const [errorMessage, setErrorMessage] = useState(null);
@@ -22,19 +22,19 @@ function App() {
       setUser(returnedUserInfo);
       blogService.setToken(returnedUserInfo.token);
       window.localStorage.setItem(
-        'loggedBlogAppUser',
+        "loggedBlogAppUser",
         JSON.stringify(returnedUserInfo),
       );
 
-      setNotificationMessage('logged in');
+      setNotificationMessage("logged in");
       setTimeout(() => {
-        setNotificationMessage('');
+        setNotificationMessage("");
       }, 5000);
       return true;
     } catch (err) {
-      setErrorMessage('Wrong credentials');
+      setErrorMessage("Wrong credentials");
       setTimeout(() => {
-        setErrorMessage('');
+        setErrorMessage("");
       }, 5000);
 
       return false;
@@ -42,7 +42,7 @@ function App() {
   };
 
   const logout = () => {
-    window.localStorage.removeItem('loggedBlogAppUser');
+    window.localStorage.removeItem("loggedBlogAppUser");
     setUser(null);
   };
 
@@ -59,7 +59,7 @@ function App() {
 
     setBlogs([...blogs, res.data]);
 
-    setNotificationMessage('blog created');
+    setNotificationMessage("blog created");
     setInterval(() => {
       setNotificationMessage(null);
     }, 5000);
@@ -72,7 +72,10 @@ function App() {
 
     setBlogs(blogs.map((b) => (b.id === blog.id ? updatedBlog : b)));
 
-    const res = await blogService.update(blog.id, { ...updatedBlog, user: blog.user.id });
+    const res = await blogService.update(blog.id, {
+      ...updatedBlog,
+      user: blog.user.id,
+    });
 
     if (res.error) {
       setErrorMessage(res.error);
@@ -82,7 +85,7 @@ function App() {
       return false;
     }
 
-    setNotificationMessage('blog liked');
+    setNotificationMessage("blog liked");
     setInterval(() => {
       setNotificationMessage(null);
     }, 5000);
@@ -103,7 +106,7 @@ function App() {
 
     setBlogs(blogs.filter((b) => b.id !== blogId));
 
-    setNotificationMessage('blog deleted');
+    setNotificationMessage("blog deleted");
     setInterval(() => {
       setNotificationMessage(null);
     }, 5000);
@@ -134,7 +137,7 @@ function App() {
 
   // try finding the user's token in local storage
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedBlogAppUser');
+    const loggedUserJSON = window.localStorage.getItem("loggedBlogAppUser");
 
     if (loggedUserJSON) {
       const loggedUser = JSON.parse(loggedUserJSON);
@@ -147,6 +150,7 @@ function App() {
     // if the user is logged in, show the blogs
     // otherwise show the login form
     <div>
+      <h1>Blog App</h1>
       {errorMessage ? <p>{errorMessage}</p> : null}
       {notificationMessage ? <p>{notificationMessage}</p> : null}
       {user === null ? (
@@ -160,14 +164,14 @@ function App() {
             {' '}
             logged in
           </p>
-          {' '}
+          {" "}
           <button type="submit" onClick={logout}>
             logout
           </button>
           <Togglable buttonLabel="create new blog" hideLabel="cancel">
             <BlogForm addBlog={addBlog} />
           </Togglable>
-          {' '}
+          {" "}
           <h2>blogs</h2>
           {blogs.map((blog) => (
             <div key={blog.id}>
