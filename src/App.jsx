@@ -154,7 +154,7 @@ function App() {
       {errorMessage ? <p>{errorMessage}</p> : null}
       {notificationMessage ? <p>{notificationMessage}</p> : null}
       {user === null ? (
-        <Togglable buttonLabel="login" hideLabel="cancel">
+        <Togglable buttonId="toggle-login-form" buttonLabel="login" hideLabel="cancel">
           <Login login={login} />
         </Togglable>
       ) : (

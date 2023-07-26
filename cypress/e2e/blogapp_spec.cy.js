@@ -4,20 +4,27 @@
 const baseUrl = "http://localhost:3000";
 const serverUrl = "http://localhost:3003";
 
-const login = async (username, password) => {
-  const body = await cy.request("POST", `${serverUrl}/api/login`, { username, password });
-  localStorage.setItem("loggedBlogAppUser", JSON.stringify(body));
+const login = async (user) => {
+  const { name, username, password } = user;
+
+  cy.contains("login").click();
+  cy.get("#username").type(username);
+  cy.get("#password").type(password);
+  cy.get("#login-button").click();
+  cy.contains(`${name} logged in`);
 };
 
 describe("Blog app", function() {
-  // test user config
-  const user = {
-    name: `testuser-${Date.now()}`,
-    username: `testusername-${Date.now()}`,
-    password: `testpassword-${Date.now()}`,
-  };
+  let user;
 
   beforeEach(function() {
+    // test user config
+    user = {
+      name: `testuser-${Date.now()}`,
+      username: `testusername-${Date.now()}`,
+      password: `testpassword-${Date.now()}`,
+    };
+
     // reset db
     cy.request("POST", `${serverUrl}/api/testing/reset`, { numOfUsers: 2, numOfBlogs: 3 });
     // create a test user
@@ -53,9 +60,8 @@ describe("Blog app", function() {
 
   describe("When logged in", function() {
     beforeEach(function() {
-      login(user.username, user.password);
+      login(user);
       cy.visit(baseUrl);
-      cy.contains(`${user.name} logged in`);
     });
 
     it("A blog can be created", function() {

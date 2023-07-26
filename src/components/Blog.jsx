@@ -64,7 +64,12 @@ Blog.propTypes = {
     title: PropTypes.string.isRequired,
     author: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
-    user: PropTypes.string.isRequired,
+    // FIXME: this should be an object
+    // user: PropTypes.string.isRequired,
+    user: PropTypes.shape({
+      username: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+    }).isRequired,
     likes: PropTypes.number.isRequired,
   }).isRequired,
   likeBlog: PropTypes.func.isRequired,
