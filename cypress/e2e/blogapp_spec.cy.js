@@ -29,7 +29,7 @@ describe("Blog app", function() {
   });
 
   describe("Login", function() {
-    it("succeeds with correct creedentials", function() {
+    it("succeeds with correct credentials", function() {
       cy.contains("login").click();
       cy.get("#username").type(user.username);
       cy.get("#password").type(user.password);
@@ -37,7 +37,7 @@ describe("Blog app", function() {
       cy.contains(`${user.name} logged in`);
     });
 
-    it("fails with incorrect creedentials", function() {
+    it("fails with incorrect credentials", function() {
       cy.contains("login").click();
       cy.get("#username").type("unknown");
       cy.get("#password").type("unknown");
