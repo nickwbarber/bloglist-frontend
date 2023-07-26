@@ -46,7 +46,7 @@ describe("Blog app", function() {
     });
   });
 
-  describe.only("When logged in", function() {
+  describe("When logged in", function() {
     beforeEach(function() {
       // log user in
       cy.contains("login").click();
