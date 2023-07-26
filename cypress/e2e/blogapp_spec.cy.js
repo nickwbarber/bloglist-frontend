@@ -4,6 +4,11 @@
 const baseUrl = "http://localhost:3000";
 const serverUrl = "http://localhost:3003";
 
+const login = async (username, password) => {
+  const body = await cy.request("POST", `${serverUrl}/api/login`, { username, password });
+  localStorage.setItem("loggedBlogAppUser", JSON.stringify(body));
+};
+
 describe("Blog app", function() {
   // test user config
   const user = {
@@ -48,11 +53,8 @@ describe("Blog app", function() {
 
   describe("When logged in", function() {
     beforeEach(function() {
-      // log user in
-      cy.contains("login").click();
-      cy.get("#username").type(user.username);
-      cy.get("#password").type(user.password);
-      cy.get("#login-button").click();
+      login(user.username, user.password);
+      cy.visit(baseUrl);
       cy.contains(`${user.name} logged in`);
     });
 
