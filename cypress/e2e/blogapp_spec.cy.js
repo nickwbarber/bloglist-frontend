@@ -109,5 +109,7 @@ describe("Blog app", function() {
 
       cy.get(".blogContent").should("not.contain", "test title");
     });
+
+    // TODO: test that a blog can only be deleted by the user who created it
   });
 });
