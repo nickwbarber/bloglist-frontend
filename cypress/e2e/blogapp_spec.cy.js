@@ -61,7 +61,6 @@ describe("Blog app", function() {
   });
 
   describe("When logged in", function() {
-    // TODO: refactor login flow
     beforeEach(function() {
       cy.login(user);
     });
