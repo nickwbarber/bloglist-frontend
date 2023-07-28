@@ -26,8 +26,8 @@ describe("Blog app", function() {
   it("login form is shown", function() {
     cy.contains("Blog App");
     cy.contains("login").click();
-    cy.get("#username");
-    cy.get("#password");
+    cy.get("#usernameInput");
+    cy.get("#passwordInput");
   });
 
   describe("Login", function() {
@@ -42,8 +42,8 @@ describe("Blog app", function() {
 
     it("fails with incorrect credentials", function() {
       cy.contains("login").click();
-      cy.get("#username").type("unknown");
-      cy.get("#password").type("unknown");
+      cy.get("#usernameInput").type("unknown");
+      cy.get("#passwordInput").type("unknown");
       cy.get("#login-button").click();
       cy.contains(/wrong credentials/i);
     });
