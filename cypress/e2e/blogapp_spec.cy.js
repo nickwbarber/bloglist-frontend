@@ -1,8 +1,8 @@
 /* eslint-disable space-before-function-paren */
 /* eslint-disable func-names */
 /* eslint-disable prefer-arrow-callback */
-const baseUrl = "http://localhost:3000";
-const serverUrl = "http://localhost:3003";
+const BASEURL = "http://localhost:3000";
+const BACKEND = "http://localhost:3003/api";
 
 const login = async (user) => {
   const { name, username, password } = user;
@@ -26,11 +26,11 @@ describe("Blog app", function() {
     };
 
     // reset db
-    cy.request("POST", `${serverUrl}/api/testing/reset`, { numOfUsers: 2, numOfBlogs: 3 });
+    cy.request("POST", `${BACKEND}/testing/reset`, { numOfUsers: 2, numOfBlogs: 3 });
     // create a test user
-    cy.request("POST", `${serverUrl}/api/users/`, user);
+    cy.request("POST", `${BACKEND}/users/`, user);
     // visit the app
-    cy.visit(baseUrl);
+    cy.visit(BASEURL);
   });
 
   it("login form is shown", function() {
@@ -61,7 +61,7 @@ describe("Blog app", function() {
   describe("When logged in", function() {
     beforeEach(function() {
       login(user);
-      cy.visit(baseUrl);
+      cy.visit(BASEURL);
     });
 
     it("A blog can be created", function() {
