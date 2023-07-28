@@ -4,17 +4,6 @@
 const BASEURL = "http://localhost:3000";
 const BACKEND = "http://localhost:3003/api";
 
-// const login = async (user) => {
-//   const { username, password } = user;
-//   cy.get("#toggle-login-form").click();
-//
-//   cy.get("#loginForm").within(() => {
-//     cy.get("#usernameInput").type(username);
-//     cy.get("#passwordInput").type(password);
-//     cy.get("#login-button").click();
-//   });
-// };
-
 describe("Blog app", function() {
   let user;
 
@@ -93,7 +82,7 @@ describe("Blog app", function() {
       });
     });
 
-    it.only("A blog can be deleted", function() {
+    it("A blog can be deleted", function() {
       // create a blog
       cy.get("#toggle-blog-form").click();
       cy.get("#title").type("test title");
