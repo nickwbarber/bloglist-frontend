@@ -65,12 +65,31 @@ describe("Blog app", function() {
     });
 
     it("A blog can be created", function() {
+      // create a blog
       cy.get("#toggle-blog-form").click();
       cy.get("#title").type("test title");
       cy.get("#author").type("test author");
       cy.get("#url").type("test url");
       cy.get("#create-blog-button").click();
+
       cy.contains("test title");
+    });
+
+    it.only("A blog can be liked", function() {
+      // create a blog
+      cy.get("#toggle-blog-form").click();
+      cy.get("#title").type("test title");
+      cy.get("#author").type("test author");
+      cy.get("#url").type("test url");
+      cy.get("#create-blog-button").click();
+
+      // TODO: test like button
+      cy.contains("test title").closest(".blogContent").within(() => {
+        cy.get(".showButton").click();
+        cy.get(".likes").contains("0");
+        cy.get(".likeButton").click();
+        cy.get(".likes").contains("1");
+      });
     });
   });
 });
