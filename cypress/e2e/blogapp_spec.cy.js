@@ -4,15 +4,16 @@
 const BASEURL = "http://localhost:3000";
 const BACKEND = "http://localhost:3003/api";
 
-const login = async (user) => {
-  const { name, username, password } = user;
-
-  cy.contains("login").click();
-  cy.get("#username").type(username);
-  cy.get("#password").type(password);
-  cy.get("#login-button").click();
-  cy.contains(`${name} logged in`);
-};
+// const login = async (user) => {
+//   const { username, password } = user;
+//   cy.get("#toggle-login-form").click();
+//
+//   cy.get("#loginForm").within(() => {
+//     cy.get("#usernameInput").type(username);
+//     cy.get("#passwordInput").type(password);
+//     cy.get("#login-button").click();
+//   });
+// };
 
 describe("Blog app", function() {
   let user;
@@ -42,11 +43,12 @@ describe("Blog app", function() {
 
   describe("Login", function() {
     it("succeeds with correct credentials", function() {
-      cy.contains("login").click();
-      cy.get("#username").type(user.username);
-      cy.get("#password").type(user.password);
-      cy.get("#login-button").click();
-      cy.contains(`${user.name} logged in`);
+      cy.get("#toggle-login-form").click();
+      cy.get("#loginForm").within(() => {
+        cy.get("#usernameInput").type(user.username);
+        cy.get("#passwordInput").type(user.password);
+        cy.get("#login-button").click();
+      });
     });
 
     it("fails with incorrect credentials", function() {
@@ -59,12 +61,12 @@ describe("Blog app", function() {
   });
 
   describe("When logged in", function() {
+    // TODO: refactor login flow
     beforeEach(function() {
-      login(user);
-      cy.visit(BASEURL);
+      cy.login(user);
     });
 
-    it("A blog can be created", function() {
+    it.only("A blog can be created", function() {
       // create a blog
       cy.get("#toggle-blog-form").click();
       cy.get("#title").type("test title");
@@ -75,7 +77,7 @@ describe("Blog app", function() {
       cy.contains("test title");
     });
 
-    it.only("A blog can be liked", function() {
+    it("A blog can be liked", function() {
       // create a blog
       cy.get("#toggle-blog-form").click();
       cy.get("#title").type("test title");

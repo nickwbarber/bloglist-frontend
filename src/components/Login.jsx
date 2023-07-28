@@ -18,12 +18,12 @@ function Login({ login }) {
   return (
     <div>
       <h2>Log in to application</h2>
-      <form onSubmit={handleLogin}>
+      <form id="loginForm" onSubmit={handleLogin}>
         <div>
           username
           {' '}
           <input
-            id="username"
+            id="usernameInput"
             type="text"
             value={username}
             name="Username"
@@ -34,7 +34,7 @@ function Login({ login }) {
           password
           {' '}
           <input
-            id="password"
+            id="passwordInput"
             type="password"
             value={password}
             name="Password"
