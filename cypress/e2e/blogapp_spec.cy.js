@@ -83,7 +83,6 @@ describe("Blog app", function() {
       cy.get("#url").type("test url");
       cy.get("#create-blog-button").click();
 
-      // TODO: test like button
       cy.contains("test title").closest(".blogContent").within(() => {
         cy.get(".showButton").click();
         cy.get(".likes").contains("0");
