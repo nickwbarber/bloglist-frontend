@@ -33,14 +33,17 @@ function Blog({
         </button>
         <span className="titleWhenVisible">{blog.title}</span>
         <br />
-        <span className="author">{`--> author: ${blog.author}`}</span>
+        {`--> author: `}
+        <span className="author">{blog.author}</span>
         <br />
-        <span className="url">{`--> URL: ${blog.url}`}</span>
+        {`--> URL: `}
+        <span className="url">{blog.url}</span>
         <br />
-        <span className="username">{`--> submitted by: ${blog.user.username}`}</span>
+        {`--> submitted by: `}
+        <span className="username">{blog.user.username}</span>
         <br />
         {'--> likes: '}
-        <span className="likes">{`${blog.likes}`}</span>
+        <span className="likes">{blog.likes}</span>
         <button
           className="likeButton"
           type="button"
