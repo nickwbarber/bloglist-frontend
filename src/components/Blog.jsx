@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-function Blog({ blog, likeBlog, deleteBlog }) {
+function Blog({
+  blog, likeBlog, deleteBlog, currentUsername,
+}) {
   const [visible, setVisible] = useState(false);
 
   const toggleVisibility = () => setVisible(!visible);
@@ -46,13 +48,16 @@ function Blog({ blog, likeBlog, deleteBlog }) {
           like
         </button>
         <br />
-        <button
-          className="deleteButton"
-          type="button"
-          onClick={() => deleteBlog(blog.id)}
-        >
-          delete
-        </button>
+        {currentUsername === blog.user.username
+          ? (
+            <button
+              className="deleteButton"
+              type="button"
+              onClick={() => deleteBlog(blog.id)}
+            >
+              delete
+            </button>
+          ) : null}
       </div>
     </div>
   );
@@ -74,6 +79,7 @@ Blog.propTypes = {
   }).isRequired,
   likeBlog: PropTypes.func.isRequired,
   deleteBlog: PropTypes.func.isRequired,
+  currentUsername: PropTypes.string.isRequired,
 };
 
 export default Blog;

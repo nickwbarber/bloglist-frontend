@@ -175,7 +175,12 @@ function App() {
           <h2>blogs</h2>
           {blogs.map((blog) => (
             <div key={blog.id}>
-              <Blog blog={blog} likeBlog={likeBlog} deleteBlog={deleteBlog} />
+              <Blog
+                blog={blog}
+                likeBlog={likeBlog}
+                deleteBlog={deleteBlog}
+                currentUsername={user.username}
+              />
               <br />
             </div>
           ))}

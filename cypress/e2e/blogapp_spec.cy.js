@@ -100,5 +100,32 @@ describe("Blog app", function() {
     });
 
     // TODO: test that a blog can only be deleted by the user who created it
+    it.only("A blog can only be deleted by the user who created it", function() {
+      // create a blog
+      cy.get("#toggle-blog-form").click();
+      cy.get("#title").type("test title");
+      cy.get("#author").type("test author");
+      cy.get("#url").type("test url");
+      cy.get("#create-blog-button").click();
+
+      // try finding delete buttons for all blogs
+      // TODO:
+      cy.wait(3000);
+
+      const getBlogContent = () => cy.get(".blogContent");
+      const newBlog = getBlogContent().filter(":contains('test title')").first();
+      const firstOldBlog = getBlogContent().not(":contains('test title')").first();
+
+      firstOldBlog.within(() => {
+        cy.get(".showButton").click();
+        cy.get(".username").should("not.contain", user.username);
+        cy.get(".deleteButton").should("not.exist");
+      });
+
+      newBlog.within(() => {
+        cy.get(".showButton").click();
+        cy.get(".deleteButton");
+      });
+    });
   });
 });
