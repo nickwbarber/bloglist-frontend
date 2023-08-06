@@ -99,7 +99,6 @@ describe("Blog app", function() {
       cy.get(".blogContent").should("not.contain", "test title");
     });
 
-    // TODO: test that a blog can only be deleted by the user who created it
     it.only("A blog can only be deleted by the user who created it", function() {
       // create a blog
       cy.get("#toggle-blog-form").click();
@@ -109,7 +108,6 @@ describe("Blog app", function() {
       cy.get("#create-blog-button").click();
 
       // try finding delete buttons for all blogs
-      // TODO:
       cy.wait(3000);
 
       const getBlogContent = () => cy.get(".blogContent");
