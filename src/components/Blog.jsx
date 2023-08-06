@@ -37,9 +37,10 @@ function Blog({
         <br />
         <span className="url">{`--> URL: ${blog.url}`}</span>
         <br />
-        <span className="username">{`--> submitted by: ${blog.user.username} `}</span>
+        <span className="username">{`--> submitted by: ${blog.user.username}`}</span>
         <br />
-        <span className="likes">{`--> likes: ${blog.likes} `}</span>
+        {'--> likes: '}
+        <span className="likes">{`${blog.likes}`}</span>
         <button
           className="likeButton"
           type="button"

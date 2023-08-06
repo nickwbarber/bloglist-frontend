@@ -99,7 +99,7 @@ describe("Blog app", function() {
       cy.get(".blogContent").should("not.contain", "test title");
     });
 
-    it.only("A blog can only be deleted by the user who created it", function() {
+    it("A blog can only be deleted by the user who created it", function() {
       // create a blog
       cy.get("#toggle-blog-form").click();
       cy.get("#title").type("test title");
@@ -123,6 +123,25 @@ describe("Blog app", function() {
       newBlog.within(() => {
         cy.get(".showButton").click();
         cy.get(".deleteButton");
+      });
+    });
+  });
+
+  describe("When there are multiple blogs", function() {
+    beforeEach(function() {
+      cy.login(user);
+    });
+
+    it.only("they are sorted by likes", function() {
+      cy.get(".blogContent").then((blogs) => {
+        for (let i = 0; i < blogs.length; i += 1) {
+          blogs[i].querySelector(".showButton").click();
+        }
+
+        for (let i = 0; i < blogs.length - 1; i += 1) {
+          const getBlogLikes = (b) => Number(b.querySelector(".likes").textContent);
+          expect(getBlogLikes(blogs[i])).to.be.at.least(getBlogLikes(blogs[i + 1]));
+        }
       });
     });
   });

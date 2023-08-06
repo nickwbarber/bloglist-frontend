@@ -125,15 +125,14 @@ function App() {
         return;
       }
       const returnedBlogs = res.data;
-      returnedBlogs.sort((a, b) => (a.likes < b.likes ? 1 : -1));
       setBlogs(returnedBlogs);
     };
     fetchBlogs();
   }, []);
 
-  useEffect(() => {
-    blogs.sort((a, b) => (a.likes < b.likes ? 1 : -1));
-  }, [blogs]);
+  // useEffect(() => {
+  //   blogs.sort((a, b) => b.likes - a.likes);
+  // }, [blogs]);
 
   // try finding the user's token in local storage
   useEffect(() => {
@@ -173,7 +172,7 @@ function App() {
           </Togglable>
           {" "}
           <h2>blogs</h2>
-          {blogs.map((blog) => (
+          {blogs.sort((a, b) => b.likes - a.likes).map((blog) => (
             <div key={blog.id}>
               <Blog
                 blog={blog}
