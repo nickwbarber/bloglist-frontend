@@ -132,7 +132,7 @@ describe("Blog app", function() {
       cy.login(user);
     });
 
-    it.only("they are sorted by likes", function() {
+    it("they are sorted by likes", function() {
       cy.get(".blogContent").then((blogs) => {
         for (let i = 0; i < blogs.length; i += 1) {
           blogs[i].querySelector(".showButton").click();
